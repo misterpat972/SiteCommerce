@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegisterType;
-use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,6 +39,7 @@ class RegisterController extends AbstractController
             
             // on enregistre l'utilisateur en base de données
             $entityManagerInterface->persist($user);
+            // on exécute la requête SQL d'insertion
             $entityManagerInterface->flush();            
 
             // on ajoute un message flash
