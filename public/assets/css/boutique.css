@@ -1,0 +1,15 @@
+/* navbar-custom */
+.navbar-item-custom, .navbar-item-custom a{
+    color: #fff;
+    
+}
+/* footer-custom */
+.footer-custom{
+    background-color: #000;
+    color: #fff;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+}

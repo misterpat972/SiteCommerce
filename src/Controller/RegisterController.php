@@ -19,12 +19,10 @@ class RegisterController extends AbstractController
     {
         // on instancie un nouvel objet User pour pouvoir l'utiliser dans le formulaire
         $user = new User();
-
         // on instancie le formulaire en lui passant l'objet User
         $form = $this->createForm(RegisterType::class, $user);
         // on demande au formulaire de gérer la requête HTTP avec la méthode handleRequest()
         $form->handleRequest($request);
-
         // on vérifie si le formulaire a été soumis et si les données sont valides
         if ($form->isSubmitted() && $form->isValid()) {
             // on récupère les données du formulaire
@@ -46,7 +44,7 @@ class RegisterController extends AbstractController
             $this->addFlash('success', 'Votre compte a bien été créé !');
 
             // on redirige l'utilisateur vers la page de connexion
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('app_login');
         }        
         
         return $this->render('register/inscription.html.twig', [

@@ -3,9 +3,10 @@
 {% block title %}Compte{% endblock %}
 
 {% block containe %}
-<h1>Bienvenue - {{ app.user.firstname }}</h1>
+<h1>Bienvenue - {{ app.user.firstname }} dans votre compte</h1>
 {# {{dump(app.user)}} #}
--modifier mon mot de passe <br>
+<hr>
+<a href="{{path('account_password')}}">Modifier mon mot de passe</a><br>
 -ajouter mes adresses <br>
 -mes commandes <br>
 
