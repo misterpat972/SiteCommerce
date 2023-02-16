@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}La boutique Frnaçaise{% endblock %}
+
+{% block containe %}
+ <a href="{{ path('products') }}" class="btn btn-primary">Retour à la liste des produits</a>
+    <div class="container " id="bloc">
+        <div class="row justify-content-center align-items-center g-2">           
+            <div class="col-md-4 ">
+                <img src="{{ asset('uploads/') ~ product.illustration }}" class="card-img-top" alt="...">
+            </div>
+            <div class="col-md-6 ">
+                <h3 class="">{{ product.name }}</h3>
+                <p class="">{{ product.description }}</p>
+                <p class="">{{ product.price | number_format(2, ",", ".") }} €</p> 
+                <hr>
+                <a href="#" class="btn btn-primary">Ajouter au panier</a> 
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

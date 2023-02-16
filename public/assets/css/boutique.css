@@ -13,3 +13,16 @@
     padding: 20px;
     text-align: center;
 }
+/* Products card Majuscule */
+.card-title {
+    text-transform: uppercase;
+    
+}
+
+.card-text:nth-child(3) {
+   font-weight: bold;
+}
+
+#bloc{
+    margin-top: 80px !important;
+}
