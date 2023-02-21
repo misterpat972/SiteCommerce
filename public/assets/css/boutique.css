@@ -17,13 +17,14 @@ body{
     width: 100%;
     padding: 20px;
     text-align: center;
+    margin-top: 50px;
 }
 /* Products card Majuscule */
 .card-title {
     text-transform: uppercase;
     
 }
-
+/* Products card child(3)*/
 .card-text:nth-child(3) {
    font-weight: bold;
 }
