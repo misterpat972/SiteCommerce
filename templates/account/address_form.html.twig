@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une addresse{% endblock %}
+
+{% block containe %}
+<!-- si la route est enregistrer alors affiche -->
+{% if app.request.get('_route') == 'add_adress' %}
+<h1>Ajouter une addresse</h1>
+{% else %} 
+<h1>Modifier une addresse</h1>
+{% endif %}
+<!--Bouton retour-->
+<a href="{{path('app_adress')}}" role="button">Retour</a>
+<hr>
+    {{form_start(form)}}
+        <div class="row justify-content-center align-items-center g-2">
+            <div class="col-md-12">
+                {{form_row(form.name)}} 
+            </div>    
+            <div class="col-md-6">
+                {{form_row(form.firstname)}} 
+            </div>
+            <div class="col-md-6">
+                {{form_row(form.lastname)}} 
+            </div>
+
+            <div class="col-md-6">
+                {{form_row(form.company)}} 
+            </div>
+            <div class="col-md-6">
+                {{form_row(form.adress)}} 
+            </div>
+            <div class="col-md-6">
+                {{form_row(form.postal)}} 
+            </div>
+            <div class="col-md-6">
+                {{form_row(form.city)}} 
+            </div>
+            <div class="col-md-6">
+                {{form_row(form.country)}} 
+            </div>
+            <div class="col-md-6">
+                {{form_row(form.phone)}} 
+            </div>       
+        </div>    
+    {{form_end(form)}}  
+
+{% endblock %}

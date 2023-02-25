@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes Addresses{% endblock %}
+
+{% block containe %}
+
+{% for message in app.flashes('success') %}
+        <div class="alert alert-info alert-dismissible fade show">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+{% endfor %}
+
+<h1>Mes addresses</h1>
+<a class="btn btn-info btn-sm float-right" href="{{path('add_adress')}}">Ajouter une addresse</a>
+<a href="{{path('compte')}}" role="button">Retour</a>
+<hr>
+{% if app.user.addresses|length == 0 %}
+    <p class="text-center">Vous n'avez pas encore d'adresse, veuillez <a href="">cliquer ici</a></p>
+{% else %}
+    <table class="table table-striped text-center">
+        <thead>
+            <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Adresse</th>
+                <th scope="col">Code postal</th>
+                <th scope="col">Ville</th>
+                <th scope="col">Pays</th>
+                <th scope="col">Téléphone</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+            {% for address in app.user.addresses %}
+                <tr>
+                    <td>{{address.name}}</td>
+                    <td>{{address.firstname}}</td>
+                    <td>{{address.adress}}</td>
+                    <td>{{address.postal}}</td>
+                    <td>{{address.city}}</td>
+                    <td>{{address.country}}</td>
+                    <td>{{address.phone}}</td>
+                    <td>
+                        <a href="{{path('edit_adress', {'id': address.id})}}" class="btn btn-primary btn-sm">Modifier</a>
+                        <a href="{{path('delete_adress', {'id': address.id})}}" class="btn btn-danger btn-sm">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+
+
+
+{% endblock %}
