@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Carrier;
 use App\Entity\Category;
 use App\Entity\Product;
 use App\Entity\User;
@@ -46,8 +47,14 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        // crud pour les utilisateurs dans le menu de l'admin
         yield MenuItem::linkToCrud('Utilisateur', 'fa fa-user', User::class);
+        // crud pour les catégories dans le menu de l'admin
         yield MenuItem::linkToCrud('Categories', 'fa fa-list', Category::class);
+        // crud pour les produits dans le menu de l'admin
         yield MenuItem::linkToCrud('Produits', 'fa fa-eye', Product::class);
+        // crud pour les transporteurs dans le menu de l'admin
+        yield MenuItem::linkToCrud('Transporteurs', 'fa fa-truck', Carrier::class);
+      
     }
 }

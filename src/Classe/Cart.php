@@ -40,12 +40,16 @@ class Cart
     public function add($id)
     {
         $session = $this->requestStack->getSession();
+        // récupération du panier dans la session
         $cart = $session->get('cart', []);
+        // si le produit existe déjà dans le panier on ajoute 1
         if(!empty($cart[$id])){
             $cart[$id]++;
         }else{
+            // si le produit n'existe pas dans le panier on l'ajoute
             $cart[$id] = 1;
         }
+       // on enregistre le panier dans la session 
        return $session->set('cart', $cart);
 
     }
@@ -53,13 +57,16 @@ class Cart
     public function sub($id)
     {
         $session = $this->requestStack->getSession();
+        // récupération du panier dans la session
         $cart = $session->get('cart', []);
+        // si le produit est supérieur à 1 on soustrait 1
         if($cart[$id] > 1) {
             $cart[$id]--;
         }else{
+            // si le produit est égal à 1 on le supprime du panier
             unset($cart[$id]);
         }
-        
+       // on enregistre le panier dans la session 
        return $session->set('cart', $cart);
 
     }
