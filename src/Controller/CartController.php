@@ -40,7 +40,6 @@ class CartController extends AbstractController
         $cart->removeProduct($id);
         return $this->redirectToRoute('cart');
     }
-
     // suppression Total du panier
     #[Route('/mon-panier/remove', name: 'remove_cart')]
         public function removeCart(Cart $cart): Response

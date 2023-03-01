@@ -33,8 +33,7 @@ class RegisterController extends AbstractController
                     $user,
                     $user->getPassword()
                 )
-            ); 
-            
+            );             
             // on enregistre l'utilisateur en base de données
             $entityManagerInterface->persist($user);
             // on exécute la requête SQL d'insertion

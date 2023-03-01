@@ -32,3 +32,9 @@ body{
 #bloc{
     margin-top: 80px !important;
 }
+
+.block-small{
+    margin-top: 100px !important;
+    font-weight: bold;
+    margin: 0 auto;
+}
