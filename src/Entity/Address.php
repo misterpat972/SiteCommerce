@@ -53,6 +53,12 @@ class Address
         return $this->user;
     }
 
+    // on va créer une function pour passer à la vue un seul champ qui sera le nom de l'adresse dans le select du formulaire
+    public function __toString()
+    {
+        return $this->name. '[br]' .$this->getAdress().'[br]'.$this->city.'[br]'.$this->country;
+    }
+ 
     public function setUser(?User $user): self
     {
         $this->user = $user;

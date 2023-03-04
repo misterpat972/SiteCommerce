@@ -41,7 +41,8 @@ class AddressType extends AbstractType
             ->add('company', TextType::class, [
                 'label' => 'Votre société',
                 'attr' => [
-                    'placeholder' => '(Facultatif), Entrez le nom de votre société'
+                    'placeholder' => '(Facultatif), Entrez le nom de votre société',
+                    'required' => false,                    
                 ]
                 ])
                 // champ pour l'adresse
@@ -88,7 +89,7 @@ class AddressType extends AbstractType
                 ]) 
         ;
     }
-
+    
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

@@ -9,6 +9,12 @@
     <div class="row">
         <div class="col-md-6">            
             <p>Choisir mon addresse de livraison</p><br>
+            {{ form_start(form) }}          
+            {{ form_widget(form) }}
+            {{ form_end(form) }} 
+            
+            {# {{ formhtml|replace({'[br]' : '<br/>'} | raw)}} #}
+          
             <p>Choisir mon transporteur</p>
         </div>
         <div class="col-md-6">
