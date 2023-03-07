@@ -40,9 +40,9 @@ class AddressType extends AbstractType
                 // champ pour la société
             ->add('company', TextType::class, [
                 'label' => 'Votre société',
+                'required' => false, // champ facultatif 'required' => false,
                 'attr' => [
-                    'placeholder' => '(Facultatif), Entrez le nom de votre société',
-                    'required' => false,                    
+                    'placeholder' => '(Facultatif), Entrez le nom de votre société',                                  
                 ]
                 ])
                 // champ pour l'adresse

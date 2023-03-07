@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Paiement de la commande {% endblock %}
+
+{% block containe %}
+    <h2> Mon récapitulatif </h2>
+    <p> Vérifier vos informations avec de payer </p>
+    <hr>
+    <div class="row">
+        <div class="col-md-6"> 
+            <strong> Mon Addresse de livraison </strong> <br/>
+            <div class="form-check mt-4">
+                {{ delivery|raw }}                 
+            </div>
+            <hr>
+           <strong> Mon transporteur </strong> <br/>
+           <div class="form-check">
+             {{ carrier.name }} <br/>
+             {{ carrier.description }} <br/>
+             {{ carrier.price|number_format(2, ',', '.') }} €
+           </div> 
+        </div>
+        <div class="col-md-6">
+            <div class="text-center">
+                <b>Ma commande</b>
+                <p>Retrouvez le récapitulatif de vos produit</p>
+            </div>
+            <div class="order-summary">
+                {% set total = null %}
+                {% for product in cart %}    
+                          
+                <div class="row">
+                    <div class="col-2"> 
+                        <img src="{{ asset('uploads/' ~ product.product.illustration )}}" alt="" width="60px">
+                    </div>
+                    <div class="col-8 my-auto"> 
+                        {{ product.product.name }} 
+                        <br>
+                        x {{ product.quantity }}
+                    </div>
+                    <div class="col-2 my-auto">
+                        {{ (product.product.price * product.quantity) }} €
+                    </div>                                   
+                </div>
+                {% set total = total + (product.product.price * product.quantity) %}
+                {% endfor %}
+            </div> 
+            <div class="row">
+                <div class="col-8 my-auto"> 
+                    <b> Sous total </b>
+                </div>
+                <div class="col-4 my-auto">
+                    <b> {{ total|number_format(2, ',', '.') }} € </b>
+                </div> 
+                <div class="col-8 my-auto"> 
+                    <b> Livraison </b>
+                </div>
+                <div class="col-4 my-auto">
+                    <b>  {{ carrier.price|number_format(2, ',', '.') }} € </b>
+                </div> 
+                <div class="col-8 my-auto"> 
+                    <b> Total </b>
+                </div>
+                <div class="col-4 my-auto">
+                    <b>  {{ (total +  carrier.price)|number_format(2, ',', '.') }} € </b>
+                </div> 
+            </div>
+
+            <a class="btn btn-success btn-block mt-3" href="">Payer {{ (total +  carrier.price)|number_format(2, ',', '.') }} €</a>    
+        </div>
+    </div>
+{% endblock %}

@@ -45,8 +45,18 @@ class AdressController extends AbstractController
             $entityManager->persist($address);
             // on envoie les données en base de données
             $entityManager->flush();
-            // on redirige vers la page des adresses du compte
-            return $this->redirectToRoute('app_adress');
+            // si l'utilisateur était sur la page panier on le redirige vers la page panier
+            if ($request->getSession()->get('cart')) {
+                return $this->redirectToRoute('order');
+            }else{
+                // on ajoute un message flash
+                $this->addFlash('success', 'Votre adresse a bien été ajoutée');
+                // on redirige vers la page des adresses du compte
+                return $this->redirectToRoute('app_adress');
+            }
+
+            // // on redirige vers la page des adresses du compte
+            // return $this->redirectToRoute('app_adress');
         }
         return $this->render('account/address_form.html.twig', [
             'form' => $form->createView(),

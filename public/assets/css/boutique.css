@@ -38,3 +38,18 @@ body{
     font-weight: bold;
     margin: 0 auto;
 }
+
+.form-check {
+    padding: 20px 65px;
+    background-color: #5c6fc471;
+    margin-top: 15px;
+}
+
+.col-form-label{
+    font-weight: bold;
+}
+.order-summary{
+    background-color: #5c6fc471;
+    padding: 20px;
+    margin-top: 29px;
+}

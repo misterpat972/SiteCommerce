@@ -7,19 +7,38 @@
     <p>choisissez vos préférence avant de passer votre commande.</p>
     <hr>
     <div class="row">
-        <div class="col-md-6">            
-            <p>Choisir mon addresse de livraison</p><br>
-            {{ form_start(form) }}          
-            {{ form_widget(form) }}
-            {{ form_end(form) }} 
-            
-            {# {{ formhtml|replace({'[br]' : '<br/>'} | raw)}} #}
-          
+        <div class="col-md-6">                    
+            <!-- on va set en html le formulaire -->  
+                {% set formhtml %}            
+                {{ form_start(form, {action:path('order_recap')}) }}
+                {{ form_label(form.addresses, 'Choisez votre addresse de livraison' )}}
+                <a href="{{ path('add_adress')}}">Ajouter une nouvelle addresse de livraison</a>
+                {{ form_end(form) }}
+                {% endset %}
+                {{ formhtml|replace({'[br]' : '<br/>'})|raw }}           
             <p>Choisir mon transporteur</p>
         </div>
         <div class="col-md-6">
-            <p>Récap de la commande</p><br>
-            <p>Valider ma commande</p>
+            <div class="text-center">
+                <b>Récap de la commande</b>
+                <p>Retrouvez le récapitulatif de vos produit</p>
+            </div>
+            <div class="order-summary">
+                {% for product in cart %}
+                
+                <div class="row">
+                    <div class="col-2"> 
+                        <img src="{{ asset('uploads/' ~ product.product.illustration )}}" alt="" width="60px">
+                    </div>
+                    <div class="col-8 my-auto"> 
+                        {{ product.product.name }} 
+                    </div>
+                    <div class="col-2 my-auto">
+                        x {{ product.quantity }}
+                    </div>                                   
+                </div>
+                {% endfor %}
+            </div>        
         </div>
     </div>
 {% endblock %}
