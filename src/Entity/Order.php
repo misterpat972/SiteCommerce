@@ -63,6 +63,20 @@ class Order
         return $this;
     }
 
+    // creation d'une fonction pour calculer le total de la commande
+    public function getTotal(): float
+    {
+        $total = null;
+
+        foreach ($this->orderDetails as $orderDetail) {
+            $total += $orderDetail->getPrice() * $orderDetail->getQuantity();
+        }
+        
+        return $total;
+
+    }
+
+  
     public function getCreatedAT(): ?\DateTimeInterface
     {
         return $this->createdAT;

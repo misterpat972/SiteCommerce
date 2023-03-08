@@ -118,6 +118,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
+    // je creer une fonction qui me permet de retourner le nom et le prenom de l'utilisateur
+    public function getFullName(): string
+    {
+        return "{$this->firstname} {$this->lastname}";
+    }
+
     public function getFirstname(): ?string
     {
         return $this->firstname;
@@ -129,7 +135,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
+    
     public function getLastname(): ?string
     {
         return $this->lastname;

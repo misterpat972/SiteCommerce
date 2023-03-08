@@ -106,7 +106,7 @@ class OrderController extends AbstractController
 
                 }
                     // j'envoie en bdd mes données
-                    // $entityManager->flush();
+                     $entityManager->flush();
              
                     return $this->render('order/recapitulatif.html.twig', [
                         // je passe à la vue le panier

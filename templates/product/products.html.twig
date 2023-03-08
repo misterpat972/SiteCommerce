@@ -22,7 +22,7 @@
                         <h5 class="card-title">{{ product.name }}</h5>
                         <p class="card-text">{{ product.description }}</p>
                         <p class="card-text">
-                            {{ product.price | number_format(2, ',', '.') }}
+                            {{ product.price|number_format(2, ',', '.') }}
                             €
                         </p>
                         <a href="{{ path('product', { id: product.id }) }}" class="btn btn-primary">Voir le produit</a>
