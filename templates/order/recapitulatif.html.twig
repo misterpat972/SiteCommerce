@@ -77,18 +77,27 @@
 {% endblock %}
 
 {% block script %}
+
 <script type="text/javascript">
-    var stripe = Stripe('sk_test_51Mk7OXGR96Yhx7AaULpIVLff0IN5jxP3f3BinbfA8n1bIx4uKfMlBCyhxJaetnTNDFM4KNhMq392WshpjKmhelQn00yvE4H46H');
-    var checkoutButton = document.getElementById('checkout-button');
+    const stripe = Stripe('pk_test_51Mk7OXGR96Yhx7AaPNfzdGddYfghh56ZGxjTOnqICpZGtjwS4dUekrT8lQYtEfGcdtdFfhrCQTuZEzCkfz6Zd8xa004oGRKp5Q');
+    const checkoutButton = document.getElementById('checkout-button');
+   
     checkoutButton.addEventListener('click', function () {
-        fetch('/commande/create-session', {
+        fetch("/commande/create-session/{{ reference }}", {
             method: 'POST',
         })
         .then(function (response) {
             return response.json();
         })
         .then(function (session) {
-            return stripe.redirectToCheckout({ sessionId: session.id });
+            if(session.error == 'order'){
+
+               window.location.replace(' {{ path("order") }} ');
+
+            }else{
+
+                return stripe.redirectToCheckout({ sessionId: session.id });
+            }
         })
         .then(function (result) {
             if (result.error) {
@@ -96,7 +105,8 @@
             }
         })
         .catch(function (error) {
-            console.error('Error:', error);
+           console.error('Error', error);
+           
         });
     });
 

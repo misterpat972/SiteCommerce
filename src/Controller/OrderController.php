@@ -77,6 +77,9 @@ class OrderController extends AbstractController
 
                 // enregistrement de ma commande en bdd 
                 $order = new Order();
+                // je récupre la référence de la commande
+                $reference = $date->format('dmY').'-'.uniqid();
+                $order->setReference($reference);
                 // je récupère l'utilisateur connecté
                 $order->setUser($this->getUser());
                 // je récupère la date de la commande
@@ -115,7 +118,7 @@ class OrderController extends AbstractController
                 }
             
                     // j'envoie en bdd mes données
-                     //$entityManager->flush();
+                     $entityManager->flush();
 
                     // // integration de stripe clé api
                     // Stripe::setApikey('sk_test_51Mk7OXGR96Yhx7AaULpIVLff0IN5jxP3f3BinbfA8n1bIx4uKfMlBCyhxJaetnTNDFM4KNhMq392WshpjKmhelQn00yvE4H46H');
@@ -146,7 +149,9 @@ class OrderController extends AbstractController
                         // je passe à la vue les transporteurs
                         'carrier' => $carriers,
                         // je passe à la vue le contenu de l'adresse de livraison 
-                        'delivery' => $delivery_content                        
+                        'delivery' => $delivery_content,
+                        // je passe à la vue la référence de la commande
+                        'reference' => $order->getReference(),                        
                     ]);
             } 
             // si le formulaire n'est pas soumis ou n'est pas valide, je redirige vers la page de commande

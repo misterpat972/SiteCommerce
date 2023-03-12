@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use Stripe\Stripe;
 use App\Classe\Cart;
+use App\Entity\Order;
 use Stripe\Checkout\Session;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -12,8 +14,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class StripeController extends AbstractController
 {
-    #[Route('/commande/create-session', name: 'stripe_create_session')]
-    public function index( Cart $cart )
+    #[Route('/commande/create-session/{reference}', name: 'stripe_create_session')]
+
+    public function index( Cart $cart, $reference, EntityManagerInterface $entityManager )
     {   
 
         // je creer un tableau pour définir les données de mon produit stripe
@@ -21,10 +24,17 @@ class StripeController extends AbstractController
         // je définis l'url de redirection en cas de succès 
         $YOUR_DOMAIN = 'http://127.0.0.1:8000';
 
-        // je récupère le contenu du panier 
-        foreach($cart->getFull() as $product){
+        // je récupère la commande en fonction de la référence
+        $order = $entityManager->getRepository(Order::class)->findOneByReference($reference);
 
-            $product_for_stripe = [
+        if(!$order){
+            new JsonResponse(['error' => 'order']);
+        }
+
+        // je récupère le contenu du panier 
+        foreach($order->getOrderDetails as $product){
+            dd($product);
+            $product_for_stripe[] = [
                 // je définis les données du produit
                 'price_data' => [
                 // je définis la devise
@@ -46,21 +56,18 @@ class StripeController extends AbstractController
             ];
 
         }
-
         // integration de stripe clé api
-        Stripe::setApikey('sk_test_51Mk7OXGR96Yhx7AaULpIVLff0IN5jxP3f3BinbfA8n1bIx4uKfMlBCyhxJaetnTNDFM4KNhMq392WshpjKmhelQn00yvE4H46H');
-                   
+        Stripe::setApikey('sk_test_51Mk7OXGR96Yhx7AaULpIVLff0IN5jxP3f3BinbfA8n1bIx4uKfMlBCyhxJaetnTNDFM4KNhMq392WshpjKmhelQn00yvE4H46H');                   
 
         // je crée une session de paiement stripe   
-        $checkout_session = Session::create([                     
-           
+        $checkout_session = Session::create([           
             // je définis mes méthodes de paiement 
             'payment_method_types' => ['card'],
             // line_items correspond aux produits que je souhaite acheter 
             'line_items' => [[
               $product_for_stripe
             ]],
-            // // je définis le mode de paiement
+            // je définis le mode de paiement
             'mode' => 'payment',
             // je définis l'url de redirection en cas de succès
             'success_url' => $YOUR_DOMAIN . '/commande/merci/{CHECKOUT_SESSION_ID}',
