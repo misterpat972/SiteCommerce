@@ -2,12 +2,13 @@
 
 namespace App\Controller;
 
+
 use Stripe\Stripe;
-use Stripe\Checkout\Session;
 use App\Classe\Cart;
 use App\Entity\Order;
 use App\Form\OrderType;
 use App\Entity\OrderDetails;
+use Stripe\Checkout\Session;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -92,6 +93,7 @@ class OrderController extends AbstractController
                     // je fais persister mes données en bdd
                     $entityManager->persist($order);
 
+                
                 // je récupère le contenu du panier 
                 foreach($cart->getFull() as $product){
                 
@@ -107,46 +109,36 @@ class OrderController extends AbstractController
                     // je récupère le total du produit (prix * quantité)
                     $orderDetails->setTotal($product['product']->getPrice() * $product['quantity']);
                     // je fais persister mes détails de commande en bdd 
-                   $entityManager->persist($orderDetails);                
-
+                   $entityManager->persist($orderDetails);                   
+                 
+                   
                 }
+            
                     // j'envoie en bdd mes données
                      //$entityManager->flush();
 
-                    // integration de stripe clé api
-                    Stripe::setApikey('sk_test_51Mk7OXGR96Yhx7AaULpIVLff0IN5jxP3f3BinbfA8n1bIx4uKfMlBCyhxJaetnTNDFM4KNhMq392WshpjKmhelQn00yvE4H46H');
+                    // // integration de stripe clé api
+                    // Stripe::setApikey('sk_test_51Mk7OXGR96Yhx7AaULpIVLff0IN5jxP3f3BinbfA8n1bIx4uKfMlBCyhxJaetnTNDFM4KNhMq392WshpjKmhelQn00yvE4H46H');
+                   
 
-                    // $YOUR_DOMAIN = 'http://127.0.0.1:8000';
-                 
-               
-                    
-                    // je crée une session de paiement stripe   
-                    $checkout_session = Session::create([
+                    // // je crée une session de paiement stripe   
+                    // $checkout_session = Session::create([                     
+                       
+                    //     // je définis mes méthodes de paiement 
+                    //     'payment_method_types' => ['card'],
+                    //     // line_items correspond aux produits que je souhaite acheter 
+                    //     'line_items' => [[
+                    //       $product_for_stripe
+                    //     ]],
+                    //     // // je définis le mode de paiement
+                    //     'mode' => 'payment',
+                    //     // je définis l'url de redirection en cas de succès
+                    //     'success_url' => $YOUR_DOMAIN . '/commande/merci/{CHECKOUT_SESSION_ID}',
+                    //     // 'success_url' => 'http://127.0.0.1:8000/commande/merci/{CHECKOUT_SESSION_ID}',
+                    //     // je définis l'url de redirection en cas d'échec
+                    //     'cancel_url' => $YOUR_DOMAIN . '/commande/echec/{CHECKOUT_SESSION_ID}',
+                    //   ]);                    
                      
-                        'success_url' => 'http://http://127.0.0.1:8000/commande',
-                        // je définis mes méthodes de paiement 
-                        'payment_method_types' => ['card'],
-                        // line_items correspond aux produits que je souhaite acheter 
-                        'line_items' => [[
-                          'price_data' => [
-                            'currency' => 'eur',
-                            'product_data' => [
-                              'name' => 'T-shirt',
-                            ],
-                            //
-                            'unit_amount' => 2000,
-                          ],
-                          'quantity' => 1,
-                        ]],
-                        // // je définis le mode de paiement
-                        'mode' => 'payment',
-                        // je définis l'url de redirection en cas de succès
-                        // 'success_url' => 'http://127.0.0.1:8000/commande/merci/{CHECKOUT_SESSION_ID}',
-                        // je définis l'url de redirection en cas d'échec
-                        // 'cancel_url' => 'http://localhost:4242/cancel',
-                      ]);
-                      dd($checkout_session);
-
              
                     return $this->render('order/recapitulatif.html.twig', [
                         // je passe à la vue le panier
@@ -154,7 +146,7 @@ class OrderController extends AbstractController
                         // je passe à la vue les transporteurs
                         'carrier' => $carriers,
                         // je passe à la vue le contenu de l'adresse de livraison 
-                        'delivery' => $delivery_content,
+                        'delivery' => $delivery_content                        
                     ]);
             } 
             // si le formulaire n'est pas soumis ou n'est pas valide, je redirige vers la page de commande

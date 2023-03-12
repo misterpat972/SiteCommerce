@@ -11,6 +11,7 @@
     <!-- lien Bootstrap  -->
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/boutique.css') }}" rel="stylesheet">
+    {% block javascript %}{% endblock %}
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -145,4 +146,6 @@
 <script src="{{ asset('assets/js/bootstrap.bundle.js')}}"></script>
 <script src="{{ asset('assets/js/empty.notification.js')}}"></script>
 </body>
+
+{% block script %}{% endblock %}
 </html>
