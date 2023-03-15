@@ -14,6 +14,7 @@
         <div class="col-md-6"> 
             <strong> Mon Addresse de livraison </strong> <br/>
             <div class="form-check mt-4">
+                {# raw fonction twig pour mettre à la ligne les éléments de livraison #}
                 {{ delivery|raw }}                 
             </div>
             <hr>
@@ -21,7 +22,7 @@
            <div class="form-check">
              {{ carrier.name }} <br/>
              {{ carrier.description }} <br/>
-             {{ carrier.price|number_format(2, ',', '.') }} €
+             {{ (carrier.price / 100 )|number_format(2, ',', '.') }} €
            </div> 
         </div>
         <div class="col-md-6">
@@ -61,45 +62,48 @@
                     <b> Livraison </b>
                 </div>
                 <div class="col-4 my-auto">
-                    <b>  {{ carrier.price|number_format(2, ',', '.') }} € </b>
+                    <b>  {{ (carrier.price / 100)|number_format(2, ',', '.') }} € </b>
                 </div>                 
                 <div class="col-8 my-auto"> 
                     <b> Total </b>
                 </div>
                 <div class="col-4 my-auto">
-                    <b>  {{ (total +  carrier.price)|number_format(2, ',', '.') }} € </b>
+                    <b>  {{ (total +  carrier.price / 100)|number_format(2, ',', '.') }} € </b>
                 </div> 
             </div>
 
-            <a class="btn btn-success btn-block mt-3" id="checkout-button">Payer {{ (total +  carrier.price)|number_format(2, ',', '.') }} €</a>    
+            <a class="btn btn-success btn-block mt-3" id="checkout-button">Payer {{ (total +  carrier.price / 100)|number_format(2, ',', '.') }} €</a>    
         </div>
     </div>
 {% endblock %}
-
+ {# dans le script ci-dessous, il fait référence à l'intégration de stripe   #}
 {% block script %}
-
 <script type="text/javascript">
     const stripe = Stripe('pk_test_51Mk7OXGR96Yhx7AaPNfzdGddYfghh56ZGxjTOnqICpZGtjwS4dUekrT8lQYtEfGcdtdFfhrCQTuZEzCkfz6Zd8xa004oGRKp5Q');
     const checkoutButton = document.getElementById('checkout-button');
    
     checkoutButton.addEventListener('click', function () {
+        // ici on fait une requête ajax pour créer une session stripe avec la référence de la commande  
         fetch("/commande/create-session/{{ reference }}", {
             method: 'POST',
         })
         .then(function (response) {
+            // ici on retourne la réponse en json 
             return response.json();
         })
         .then(function (session) {
+            // ici on vérifie si la commande existe ou pas 
             if(session.error == 'order'){
-
+                // ici on redirige vers la page de commande si la commande n'existe pas
                window.location.replace(' {{ path("order") }} ');
 
             }else{
-
+                // ici on redirige vers la page de paiement de stripe
                 return stripe.redirectToCheckout({ sessionId: session.id });
             }
         })
         .then(function (result) {
+            // si le paiement est refusé on affiche un message d'erreur
             if (result.error) {
                 alert(result.error.message);
             }

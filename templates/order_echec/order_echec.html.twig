@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Echec de paiement {% endblock %}
+
+{% block containe %}
+    <h1> Echec de de paiement</h1>
+    <p> Bonjour  <strong>{{ order.user.firstname }} {{ order.user.lastname }}</strong>
+        <br>
+        Votre commande n° <strong>{{ order.reference }}</strong> n'a pas été prise en compte.
+        <br>
+        Vous allez recevoir un mail de confirmation à l'adresse <strong>{{ order.user.email }} d'echec de paiement </strong>.
+    </P>        
+       <a href="{{path('order')}}" class="btn btn-success">Rééssayer le paiement </a>
+{% endblock %}

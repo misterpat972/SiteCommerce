@@ -63,4 +63,24 @@ class OrderRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+
+    // permet de récupérer les commandes validées dans l'espace utilisateur
+    public function findSuccessOrders($user): array
+    {   // retourne les commandes validées par l'utilisateur
+        return $this->createQueryBuilder('o')
+        // on récupère les commandes qui ont un statut à 1
+            ->andWhere('o.isPaid = 1')
+            // on récupère les commandes qui ont un user qui correspond à l'utilisateur connecté
+            ->andWhere('o.user = :user')
+            // on définit le paramètre user qui correspond à l'utilisateur connecté
+            ->setParameter('user', $user)
+            // on trie les commandes par date de création
+            ->orderBy('o.id', 'DESC')
+            // on récupère les résultats
+            ->getQuery()
+            // on retourne les résultats
+            ->getResult()
+        ;
+    }
 }

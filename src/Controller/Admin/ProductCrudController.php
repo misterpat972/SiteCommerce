@@ -45,8 +45,8 @@ class ProductCrudController extends AbstractCrudController
             // je crée un nouveau champ de type TextareaField qui est un champ personnalisé de EasyAdmin
             TextareaField::new('description'),
             // je crée un nouveau champ de type MoneyField qui est un champ personnalisé de EasyAdmin
-            // MoneyField::new('price')->setCurrency('EUR'),
-            NumberField::new('price')->setNumDecimals(2),
+            MoneyField::new('price')->setCurrency('EUR'),
+            // NumberField::new('price')->setNumDecimals(2),
             // je crée un nouveau champ de type AssociationField qui est un champ personnalisé de EasyAdmin qui permet de lier un produit à une catégorie
             // AssociationField::new('category')
             AssociationField::new('category'),
