@@ -91,7 +91,7 @@ class OrderController extends AbstractController
                 // je récupère le contenu de l'adresse de livraison de la variable $delivery_content
                 $order->setDelivery($delivery_content);
                 // je récupère le statut de la commande
-                $order->setIsPaid(0);
+                $order->setState(0);
                 
                     // je fais persister mes données en bdd
                     $entityManager->persist($order);

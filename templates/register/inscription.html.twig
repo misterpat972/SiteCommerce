@@ -3,12 +3,14 @@
 {% block title %} Inscription {% endblock %}
 
 {% block containe %}
-
-{% for message in app.flashes('success') %}
-       <div class="alert alert-info alert-dismissible fade show">
+{# récupère les passers à la vue #}
+{% for message_flash, messages in app.flashes(['success', 'warning']) %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message_flash }} alert-dismissible fade show">
             {{ message }}
-           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-       </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+    {% endfor %}
 {% endfor %}
 
     <div class="container ">
