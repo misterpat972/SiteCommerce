@@ -70,7 +70,7 @@ class OrderRepository extends ServiceEntityRepository
     {   // retourne les commandes validées par l'utilisateur
         return $this->createQueryBuilder('o')
         // on récupère les commandes qui ont un statut à 1
-            ->andWhere('o.isPaid = 1')
+            ->andWhere('o.state > 0')
             // on récupère les commandes qui ont un user qui correspond à l'utilisateur connecté
             ->andWhere('o.user = :user')
             // on définit le paramètre user qui correspond à l'utilisateur connecté
