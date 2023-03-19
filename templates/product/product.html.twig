@@ -18,5 +18,15 @@
             </div>
         </div>
     </div>
+    <hr>
+    {# affiche les meilleurs produits dans la vue d'un produit #}
+    <p>Découvrez nos meilleurs articles vendus</p>
+        <div class="row">
+            {% for product in products %}
+                <div class="col-md-3">
+                    {% include "product/single_product.html.twig" %}
+                </div>    
+            {% endfor %}
+        </div><!-- /.row -->
 
 {% endblock %}

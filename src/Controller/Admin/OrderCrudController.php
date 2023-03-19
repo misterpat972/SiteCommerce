@@ -59,10 +59,10 @@ class OrderCrudController extends AbstractCrudController
         ->setAction(Action::INDEX)
         ->generateUrl();
 
-          // on envoie un email à l'utilisateur pour lui confirmer que sa commande est en préparation
-          $email = new Mail();
-          $content = "Bonjour ".$order->getUser()->getFirstName()."<br/>Votre commande n°".$order->getReference()." est en cours de préparation";
-          $email->send($order->getUser()->getEmail(), $order->getUser()->getFirstName(), 'Votre commande sur la boutique La Boutique Française est en cours de préparation', $content);
+        //   // on envoie un email à l'utilisateur pour lui confirmer que sa commande est en préparation
+        //   $email = new Mail();
+        //   $content = "Bonjour ".$order->getUser()->getFirstName()."<br/>Votre commande n°".$order->getReference()." est en cours de préparation";
+        //   $email->send($order->getUser()->getEmail(), $order->getUser()->getFirstName(), 'Votre commande sur la boutique La Boutique Française est en cours de préparation', $content);
                    
 
 

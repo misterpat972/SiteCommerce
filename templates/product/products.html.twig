@@ -16,18 +16,8 @@
         <div class="row">
             {% for product in products %}
             <div class="col-md-4">
-                <div class="card m-3">
-                    <img src="{{ asset('uploads/') ~ product.illustration }}" class="card-img-top" alt="..." />
-                    <div class="card-body text-center">
-                        <h5 class="card-title">{{ product.name }}</h5>
-                        <p class="card-text">{{ product.description }}</p>
-                        <p class="card-text">
-                            {{ (product.price / 100)|number_format(2, ',', '.') }}
-                            €
-                        </p>
-                        <a href="{{ path('product', { id: product.id }) }}" class="btn btn-primary">Voir le produit</a>
-                    </div>
-                </div>
+                {# include des produits #}
+                {% include "product/single_product.html.twig" %}
             </div>
             {% endfor %}
         </div>

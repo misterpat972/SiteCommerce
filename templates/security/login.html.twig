@@ -5,9 +5,16 @@
 {% block containe %}
 <div class="block-small">
     <form method="post">
+        {# message flash si erreur #}
         {% if error %}
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
+        {# message flash #}
+        {% for message in app.flashes('notice') %}
+            <div id="notification" class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
     
         {% if app.user %}
             <div class="mb-3">
@@ -41,6 +48,7 @@
         </button>
         <hr>
         <p class="text-center"> Ou <a href="{{ path('inscription') }}">s'inscrire?</a></p>
+        <p class="text-center"><a href="{{ path('reset_password') }}">mot de passe oublié ?</a></p>
     </form>
 </div>
 {% endblock %}

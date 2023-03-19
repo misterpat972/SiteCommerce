@@ -3,14 +3,16 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Product;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use phpDocumentor\Reflection\Types\Boolean;
+use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class ProductCrudController extends AbstractCrudController
 {
@@ -44,6 +46,8 @@ class ProductCrudController extends AbstractCrudController
             TextField::new('subtitle'),
             // je crée un nouveau champ de type TextareaField qui est un champ personnalisé de EasyAdmin
             TextareaField::new('description'),
+            // je crée un nouveau champ de type BooleanField qui est un champ personnalisé de EasyAdmin pour les produits qui marchent bien
+            BooleanField::new('isBest'),
             // je crée un nouveau champ de type MoneyField qui est un champ personnalisé de EasyAdmin
             MoneyField::new('price')->setCurrency('EUR'),
             // NumberField::new('price')->setNumDecimals(2),

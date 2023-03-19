@@ -49,8 +49,11 @@ class ProductController extends AbstractController
         }
         // je récupère le produit correspondant à l'id
         $product = $productRepository->find($id);
+        // je récupère les produits qui ont la propriété isBest à 1 (true) pour les afficher dans la vue du produit en cours
+        $products = $productRepository->findByIsBest(1);
         return $this->render('product/product.html.twig', [
-            "product" => $product,                 
+            "product" => $product,
+            "products" => $products                 
         ]);
     }
 }

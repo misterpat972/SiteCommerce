@@ -4,6 +4,9 @@
 
 {% block containe %}
 <h1>Ma commande {{ order.reference }} </h1>
+<pre>
+  {{ dump(order.reference) }}
+</pre>
 <a href="{{ path('account_order')}}">Retour</a>
 <hr>
 <strong id="status">Status de la commande :
